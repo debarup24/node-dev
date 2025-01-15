@@ -2,29 +2,18 @@ const express = require("express") ;
 
 const app = express () ;
 
-app.get("/user", (req,res) => {
-    res.send({firstName: "Dev", lastName: "Sarkar" })
+
+app.use(express.json()) ;
+app.use(express.urlencoded({entended: true})) ;
+
+app.get("/", (req,res) => {
+    res.send("chal rha he!")
 })
 
-app.post("/user", async (req, res) => {
-    console.log (req.body) ;
-    res.send("Data Successfully saved to database!") ; 
+app.get("/profile/:username", (req,res) => {
+    res.send(`welcome.. ${req.params.username}`) ;
 })
 
-app.use("/" , (err,req, res, next) => {
-    if (err) {
-        res.status(500).send("Something went wrong!") ;
-    }
-         
-     }) ;
-
-// app.use("/home" , (req, res) => {
-//     res.send("Welcome to backend - server side !") ; // req handler
-// }) ;
-
-// app.use("/greeting" , (req, res) => {
-//     res.send("Namaste from the server !") ; 
-// })   ;
 
 app.listen(2421, () => {
     console.log ("Server is successfully listening on port 2421") ;
